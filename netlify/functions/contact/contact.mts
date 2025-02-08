@@ -15,12 +15,12 @@ export default async (request: Request, context: Context) => {
     var contact: Contact = await validateRequestBody(request);
 
     const app = initializeApp({
-      apiKey: Netlify.env.get("API_KEY"),
-      authDomain: Netlify.env.get("AUTH_DOMAIN"),
-      databaseURL:  Netlify.env.get("DATABASE_URL"),
-      projectId: Netlify.env.get("PROJECT_ID"),
-      storageBucket: Netlify.env.get("STORAGE_BUCKET"),
-      messagingSenderId: Netlify.env.get("MESSAGING_SENDER_ID")
+      apiKey: process.env.API_KEY,
+      authDomain: process.env.AUTH_DOMAIN,
+      databaseURL:  process.env.DATABASE_URL,
+      projectId: process.env.PROJECT_ID,
+      storageBucket: process.env.STORAGE_BUCKET,
+      messagingSenderId: process.env.MESSAGING_SENDER_ID
     });
 
     const db = getFirestore(app);
