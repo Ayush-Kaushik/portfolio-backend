@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@netlify/functions": "^3.0.0"
+    "@netlify/functions": "^3.0.0",
+    "@types/node": "^22.13.1",
+    "firebase": "^11.3.0",
+    "typescript": "^4.9.5"
   }
 }
