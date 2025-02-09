@@ -17,7 +17,7 @@ export default async (request: Request, context: Context) => {
     const app = initializeApp({
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,
-      databaseURL:  process.env.DATABASE_URL,
+      databaseURL: process.env.DATABASE_URL,
       projectId: process.env.PROJECT_ID,
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID
@@ -37,15 +37,14 @@ export default async (request: Request, context: Context) => {
   } catch (exception) {
 
     if (exception.cause == "invalid-data") {
-      return Response.error();
+      return new Response("unable to send message!", { status: 400 });
     }
 
     console.log("Error adding document: ", exception);
-    return Response.error();
-
+    return new Response("unable to send message!", { status: 500 });
   }
 
-  return new Response("Someone contacted me!");
+  return new Response("message sent!", { status: 200 });
 }
 
 
