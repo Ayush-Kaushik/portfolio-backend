@@ -11,15 +11,21 @@ interface Contact extends ReadableStream<Uint8Array<ArrayBufferLike>> {
 
 export default async (request: Request, context: Context) => {
 
-  try {
+  var corsResponseHeaders = {
+    "Access-Control-Allow-Origin": process.env.ALLOWED_REQUEST_ORIGIN!.toString(),
+    "Access-Control-Allow-Methods": process.env.ALLOWED_METHODS!.toString(),
+    "Access-Control-Allow-Credentials": process.env.ALLOWED_CREDENTIALS!.toString(),
+    "Access-Control-Allow-Headers": process.env.ALLOWED_HEADERS!.toString()
+  };
 
+  try {
     // Set pre-flight check CORS headers
-    if(request.method === "OPTIONS") {
-      let response = new Response();
-      response.headers.set("Access-Control-Allow-Origin", process.env.ALLOWED_REQUEST_ORIGIN!.toString());
-      response.headers.append("Access-Control-Allow-Methods", process.env.ALLOWED_METHODS!.toString());
-      response.headers.append("Access-Control-Allow-Credentials", process.env.ALLOWED_CREDENTIALS!.toString());
-      response.headers.append("Access-Control-Allow-Headers", process.env.ALLOWED_HEADERS!.toString());
+    if (request.method === "OPTIONS") {
+      let response = new Response("OK", {
+        status: 200,
+        headers: corsResponseHeaders
+      });
+
       return response;
     }
 
@@ -45,14 +51,23 @@ export default async (request: Request, context: Context) => {
   } catch (exception) {
 
     if (exception.cause == "invalid-data") {
-      return new Response("unable to send message!", { status: 400 });
+      return new Response("unable to send message!", {
+        status: 400,
+        headers: corsResponseHeaders
+      });
     }
 
     console.log("Error adding document: ", exception);
-    return new Response("unable to send message!", { status: 500 });
+    return new Response("unable to send message!", {
+      status: 500,
+      headers: corsResponseHeaders
+    });
   }
 
-  return new Response("message sent!", { status: 200 });
+  return new Response("message sent!", {
+    status: 200,
+    headers: corsResponseHeaders
+  });
 }
 
 
