@@ -12,6 +12,20 @@ interface Contact extends ReadableStream<Uint8Array<ArrayBufferLike>> {
 export default async (request: Request, context: Context) => {
 
   try {
+
+    // Set pre-flight check CORS headers
+    if(request.method === "OPTIONS") {
+
+      let response = new Response();
+      response.headers.set("Access-Control-Allow-Origin", process.env.ALLOWED_REQUEST_ORIGIN!.toString());
+      response.headers.append("Access-Control-Allow-Methods", process.env.ALLOWED_METHODS!.toString());
+      response.headers.append("Access-Control-Allow-Credentials", process.env.ALLOWED_CREDENTIALS!.toString());
+      response.headers.append("Access-Control-Allow-Headers", process.env.ALLOWED_HEADERS!.toString());
+
+      return response;
+    }
+
+
     var contact: Contact = await validateRequestBody(request);
 
     const app = initializeApp({
@@ -41,6 +55,9 @@ export default async (request: Request, context: Context) => {
     }
 
     console.log("Error adding document: ", exception);
+
+    
+
     return new Response("unable to send message!", { status: 500 });
   }
 
