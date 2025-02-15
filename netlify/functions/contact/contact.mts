@@ -15,19 +15,15 @@ export default async (request: Request, context: Context) => {
 
     // Set pre-flight check CORS headers
     if(request.method === "OPTIONS") {
-
       let response = new Response();
       response.headers.set("Access-Control-Allow-Origin", process.env.ALLOWED_REQUEST_ORIGIN!.toString());
       response.headers.append("Access-Control-Allow-Methods", process.env.ALLOWED_METHODS!.toString());
       response.headers.append("Access-Control-Allow-Credentials", process.env.ALLOWED_CREDENTIALS!.toString());
       response.headers.append("Access-Control-Allow-Headers", process.env.ALLOWED_HEADERS!.toString());
-
       return response;
     }
 
-
     var contact: Contact = await validateRequestBody(request);
-
     const app = initializeApp({
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,
@@ -38,8 +34,6 @@ export default async (request: Request, context: Context) => {
     });
 
     const db = getFirestore(app);
-
-    // add the data to collection
     let documentReference = await addDoc(collection(db, "contacts"), {
       name: contact.name,
       email: contact.email,
@@ -55,9 +49,6 @@ export default async (request: Request, context: Context) => {
     }
 
     console.log("Error adding document: ", exception);
-
-    
-
     return new Response("unable to send message!", { status: 500 });
   }
 
