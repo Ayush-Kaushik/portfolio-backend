@@ -8,25 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    name: Deploy
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22
-
-      - name: Install Wrangler
-        run: npm install -g wrangler
-
-      - name: Navigate to Worker directory
-        working-directory: Cloudflare/contact-worker
-        run: |
-          echo "Deploying Cloudflare Worker..."
-
-      - name: Publish Worker
-        working-directory: Cloudflare/contact-worker
+      - uses: actions/checkout@v4
+      - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: "Cloudflare/contact-worker"
