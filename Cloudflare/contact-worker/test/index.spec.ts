@@ -1,8 +1,6 @@
 import { SELF } from 'cloudflare:test';
-import { describe, it, expect, afterAll } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import '../src/index';
-
-// TODO: Find out how to stop all test threads after execution
 
 describe('Contact worker - security tests', () => {
 	it('rejects requests with missing body', async () => {
