@@ -19,6 +19,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Run behavioural tests
+        working-dircetory: Cloudflare/contact-worker
+        run: |
+          npm run test
+
       - name: Install Wrangler
         run: npm install -g wrangler
 
