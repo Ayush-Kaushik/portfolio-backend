@@ -20,7 +20,7 @@ jobs:
           node-version: 20
 
       - name: Run behavioural tests
-        working-dircetory: Cloudflare/contact-worker
+        working-directory: Cloudflare/contact-worker
         run: |
           npm run test
 
