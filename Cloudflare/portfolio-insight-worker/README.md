@@ -1,5 +1,7 @@
 # Portfolio Insight Worker
 
+> Access the website here: [https://ayush-kaushik.github.io/](https://ayush-kaushik.github.io/)
+
 [![Status](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/yourusername/portfolio-insight-worker)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
@@ -39,7 +41,6 @@ This creates an interactive and AI-powered experience for users to quickly under
 
 ## Architecture
 > 🌐 Frontend (Website) → ⚡ Cloudflare Worker (Portfolio Insight Worker) → 🤖 Gemini AI (Context-aware responses) → 🌐 Response back to Frontend
-
 
 - **Frontend:** Sends user prompts (questions) to the Worker.  
 - **Worker:** Receives prompts, attaches website context, calls Gemini AI API, and returns the response.  
