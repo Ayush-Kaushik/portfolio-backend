@@ -33,9 +33,19 @@ jobs:
         run: |
           echo "Deploying Cloudflare Worker..."
     
-      - name: Publish Worker
+      - name: Publish Contact Worker
         working-directory: Cloudflare/contact-worker
         run: npm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Publish Portfolio Insight Worker
+        working-directory: Cloudflare/portfolio-insight-worker
+        run: |
+          npm install
+          npm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
