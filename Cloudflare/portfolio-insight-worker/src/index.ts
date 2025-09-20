@@ -2,11 +2,9 @@ import { GoogleGenAI } from '@google/genai';
 
 export default {
 	async fetch(request: Request, env, ctx): Promise<Response> {
-
-		const GEMINI_API_KEY = env.GEMINI_API_KEY;
 		const MAX_TOTAL_BYTES = 5000; // adjust as safe max payload size
 
-		if (GEMINI_API_KEY === undefined || GEMINI_API_KEY === "") {
+		if (env.GEMINI_API_KEY === undefined || env.GEMINI_API_KEY === "") {
 			return new Response("Worker is under maintainence", { status: 500 });
 		}
 
@@ -37,7 +35,7 @@ export default {
 				return new Response("Forbidden", { status: 403 });
 			}
 
-			const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+			const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
 			const response = await ai.models.generateContent({
 				model: 'gemini-2.0-flash-001',
