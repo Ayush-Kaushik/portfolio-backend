@@ -1,5 +1,7 @@
 # Portfolio Backend
 
+> Access the website here: [https://ayush-kaushik.github.io/](https://ayush-kaushik.github.io/)
+
 This repository contains the backend services for my personal portfolio, implemented using two different serverless platforms: Cloudflare Workers and Netlify Functions. The backend is designed to handle contact form submissions and other potential API needs for the portfolio frontend.
 
 ## Structure
@@ -19,7 +21,7 @@ This repository contains the backend services for my personal portfolio, impleme
 
 - **Contact Form Handling**: Both Cloudflare Worker and Netlify Function implementations process contact form submissions, making the backend platform-agnostic and deployable on multiple serverless providers.
 - **TypeScript**: The codebase is written in TypeScript for type safety and maintainability.
-- **Testing**: Includes test setup (using Vitest for Cloudflare Worker) to ensure reliability.
+- **Testing**: Includes test setup (using Vitest for Cloudflare Worker) to ensure worker is robust.
 
 ## Usage
 
@@ -31,5 +33,3 @@ This repository contains the backend services for my personal portfolio, impleme
 1. Clone the repository.
 2. Install dependencies in each subproject (`npm install`).
 3. Follow the deployment instructions for your chosen platform (Cloudflare or Netlify).
-
----
