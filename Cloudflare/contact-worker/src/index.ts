@@ -18,7 +18,17 @@ export default {
 		try {
 			console.log("Incoming request: ", request.method, request.url, request.headers);
 
-			if (request.method !== "POST") {
+			if (request.method === "OPTIONS") {
+				return new Response(null, {
+					headers: {
+						"Access-Control-Allow-Origin": env.ACCESS_CONTROL_ALLOW_ORIGIN, // Or restrict to specific domain
+						"Access-Control-Allow-Methods": env.ACCESS_CONTROL_ALLOW_METHODS,
+						"Access-Control-Allow-Headers": env.ACCESS_CONTROL_ALLOW_HEADERS
+					}
+				});
+			}
+
+			if (request.method !== "POST" && request.method !== "OPTIONS") {
 				console.warn("Rejected non-post request");
 				return new Response("Forbidden", { status: 403 });
 			}
@@ -32,7 +42,7 @@ export default {
 			const contentLengthHeader = request.headers.get("content-length");
 			if (contentLengthHeader && Number(contentLengthHeader) > MAX_TOTAL_BYTES) {
 				console.error("Payload too large:", contentLengthHeader);
-				return new Response("Forbidden", {status: 403});
+				return new Response("Forbidden", { status: 403 });
 			}
 
 			let data: User;
@@ -45,14 +55,14 @@ export default {
 				return new Response("Forbidden", { status: 403 });
 			}
 
-			if(data.name === undefined || data.message === undefined) {
+			if (data.name === undefined || data.message === undefined) {
 				console.warn("Received empty message");
-				return new Response("Forbidden", {status: 403});
+				return new Response("Forbidden", { status: 403 });
 			}
 
-			if(data === undefined || data.message.length > MAX_MESSAGE_LENGTH) {
+			if (data === undefined || data.message.length > MAX_MESSAGE_LENGTH) {
 				console.error(`Message length exceeds defined slack message length ${MAX_MESSAGE_LENGTH}`);
-				return new Response("Forbidden", {status: 403});
+				return new Response("Forbidden", { status: 403 });
 			}
 
 			const name = data.name ?? "Unknown user";
@@ -95,4 +105,7 @@ export interface User {
 
 export interface Env {
 	SLACK_WEBHOOK_URL: string;
+	ACCESS_CONTROL_ALLOW_ORIGIN: string;
+	ACCESS_CONTROL_ALLOW_METHODS: string;
+	ACCESS_CONTROL_ALLOW_HEADERS: string;
 }
