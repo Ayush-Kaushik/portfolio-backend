@@ -75,11 +75,6 @@ export default {
 
 			const slackResponse = await fetch(env.SLACK_WEBHOOK_URL, {
 				method: "POST",
-				headers: {
-					"Access-Control-Allow-Origin": env.ACCESS_CONTROL_ALLOW_ORIGIN,
-					"Access-Control-Allow-Methods": env.ACCESS_CONTROL_ALLOW_METHODS,
-					"Access-Control-Allow-Headers": env.ACCESS_CONTROL_ALLOW_HEADERS
-				},
 				body: JSON.stringify(payload),
 			});
 
@@ -92,7 +87,14 @@ export default {
 			}
 
 			console.log("Message sent to Slack successfully ✅");
-			return new Response("Message delivered ✅", { status: 200 });
+			return new Response("Message delivered ✅", {
+				status: 200,
+				headers: {
+					"Access-Control-Allow-Origin": env.ACCESS_CONTROL_ALLOW_ORIGIN,
+					"Access-Control-Allow-Methods": env.ACCESS_CONTROL_ALLOW_METHODS,
+					"Access-Control-Allow-Headers": env.ACCESS_CONTROL_ALLOW_HEADERS
+				}
+			});
 
 		} catch (err: any) {
 			console.error(err);
