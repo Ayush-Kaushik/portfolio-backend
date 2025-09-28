@@ -75,7 +75,11 @@ export default {
 
 			const slackResponse = await fetch(env.SLACK_WEBHOOK_URL, {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Access-Control-Allow-Origin": env.ACCESS_CONTROL_ALLOW_ORIGIN,
+					"Access-Control-Allow-Methods": env.ACCESS_CONTROL_ALLOW_METHODS,
+					"Access-Control-Allow-Headers": env.ACCESS_CONTROL_ALLOW_HEADERS
+				},
 				body: JSON.stringify(payload),
 			});
 
