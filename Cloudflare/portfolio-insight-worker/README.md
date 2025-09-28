@@ -2,9 +2,6 @@
 
 > Access the website here: [https://ayush-kaushik.github.io/](https://ayush-kaushik.github.io/)
 
-[![Status](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/yourusername/portfolio-insight-worker)
-[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-
 A Cloudflare Worker integrated with **Google Gemini AI** that provides quick, TL;DR-style answers to user queries based on the content of a website. This project enables visitors to interact with your website conversationally, extracting key insights without manually browsing pages.
 
 ---
@@ -68,14 +65,12 @@ GEMINI_API_KEY=<your_api_key>
 wrangler publish
 ```
 
-Milestones
-
 ## Milestones
 
 | Milestone                 | Description                                              | Status        |
 | ------------------------- | -------------------------------------------------------- | ------------- |
 | Initial Worker Setup      | Create a basic Cloudflare Worker to receive prompts      | ✅ Completed   |
-| Gemini AI Integration     | Connect Worker with Gemini AI API                        | ⚙️ In Progress |
+| Gemini AI Integration     | Connect Worker with Gemini AI API                        | ✅ Completed   |
 | Website Content Indexing  | Enable AI to use website content for context             | ⚙️ In Progress |
 | Frontend Integration      | Connect website UI to send queries and display responses | ⚙️ Planned     |
 | Enhanced Context Handling | Optimize Worker for large website content and caching    | ⚙️ Planned     |

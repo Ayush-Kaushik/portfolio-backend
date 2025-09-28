@@ -11,6 +11,14 @@ export default {
 		try {
 			console.log("Incoming request: ", request.method, request.url, request.headers);
 
+			if (request.method === "OPTIONS") {
+				const headers = new Headers();
+				headers.set("Access-Control-Allow-Methods", env.ALLOWED_METHODS);
+				headers.set("Access-Control-Allow-Headers", env.ALLOWED_HEADERS);
+				headers.set("Access-Control-Allow-Origin", env.ALLOWED_ORIGIN);
+				return new Response("OK", { status: 200, headers });
+			}
+
 			if (request.method !== "POST") {
 				console.warn("Rejected non-post request");
 				return new Response("Forbidden", { status: 403 });
@@ -57,4 +65,8 @@ export interface Prompt {
 
 export interface Env {
 	GEMINI_API_KEY: string;
+	ALLOWED_ORIGIN: string;
+	ALLOWED_METHODS: string;
+	ALLOWED_HEADERS: string;
+	ALLOWED_CREDENTIALS: string;
 }

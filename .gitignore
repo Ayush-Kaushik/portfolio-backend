@@ -308,3 +308,6 @@ dist
 
 .dev.vars
 .wrangler/
+
+# Training data
+training_data
