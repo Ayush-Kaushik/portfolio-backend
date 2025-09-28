@@ -11,7 +11,7 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 export default {
-	async fetch(request: Request, env, ctx): Promise<Response> {
+	async fetch(request: Request, env, _): Promise<Response> {
 		const MAX_TOTAL_BYTES = 5000; // adjust as safe max payload size
 		const MAX_MESSAGE_LENGTH = 4000; // Slack limit
 
@@ -25,11 +25,13 @@ export default {
 
 			const contentType = request.headers.get("content-type") || "";
 			if (!contentType.includes("application/json")) {
-				return new Response("Content-Type must be application/json", { status: 403 });
+				console.error("Invalid content-type:", contentType);
+				return new Response("Forbidden", { status: 400 });
 			}
 
 			const contentLengthHeader = request.headers.get("content-length");
 			if (contentLengthHeader && Number(contentLengthHeader) > MAX_TOTAL_BYTES) {
+				console.error("Payload too large:", contentLengthHeader);
 				return new Response("Forbidden", {status: 403});
 			}
 
